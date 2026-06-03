@@ -16,195 +16,288 @@
     --gold: #d4a853;
     --soft: #f0f7fb;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--navy); min-height: 100vh; }
 
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    color: var(--navy);
+    min-height: 100vh;
+  }
+
+  /* ---- HERO ---- */
   .hero {
     background: linear-gradient(135deg, #a8d8f0 0%, #bde4f7 50%, #ceedfb 100%);
-    padding: 48px 24px 36px; text-align: center; position: relative; overflow: hidden;
+    padding: 48px 24px 36px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
   }
   .hero::before {
-    content: ''; position: absolute; inset: 0;
+    content: '';
+    position: absolute; inset: 0;
     background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231a3a5c' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }
   .hero-emoji { font-size: 56px; display: block; margin-bottom: 8px; animation: float 3s ease-in-out infinite; }
   @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(28px, 6vw, 48px); color: var(--navy); margin-bottom: 8px; }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 6vw, 48px);
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
   .hero p { font-size: 16px; color: #4a6885; font-weight: 600; }
-  .stats { display: flex; justify-content: center; gap: 32px; margin-top: 24px; flex-wrap: wrap; }
+  .stats {
+    display: flex; justify-content: center; gap: 32px;
+    margin-top: 24px; flex-wrap: wrap;
+  }
   .stat {
-    background: rgba(255,255,255,0.75); border-radius: 16px; padding: 12px 20px;
-    backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.9);
+    background: rgba(255,255,255,0.7);
+    border-radius: 16px; padding: 12px 20px;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.9);
   }
   .stat-num { font-size: 24px; font-weight: 700; color: var(--navy); }
   .stat-label { font-size: 12px; color: #4a6885; }
 
+  /* ---- INSTRUCTIONS ---- */
   .instructions {
-    background: white; margin: 20px 16px; border-radius: 20px; padding: 20px 24px;
-    border-left: 4px solid var(--coral); display: flex; align-items: flex-start; gap: 12px;
+    background: white;
+    margin: 20px 16px;
+    border-radius: 20px;
+    padding: 20px 24px;
+    border-left: 4px solid var(--coral);
+    display: flex; align-items: flex-start; gap: 12px;
     box-shadow: 0 2px 12px rgba(26,58,92,0.07);
   }
   .instructions-icon { font-size: 28px; flex-shrink: 0; }
   .instructions h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
   .instructions p { font-size: 14px; color: #5a7a99; line-height: 1.5; }
 
+  /* ---- CATEGORY TABS ---- */
   .tabs-wrapper {
-    overflow-x: auto; padding: 0 16px; margin-bottom: 12px;
-    -webkit-overflow-scrolling: touch; scrollbar-width: none;
+    overflow-x: auto;
+    padding: 0 16px;
+    margin-bottom: 12px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
   }
   .tabs-wrapper::-webkit-scrollbar { display: none; }
-  .tabs { display: flex; gap: 8px; min-width: max-content; padding: 4px 0; }
+  .tabs {
+    display: flex; gap: 8px; min-width: max-content; padding: 4px 0;
+  }
   .tab-btn {
-    background: white; border: 2px solid #e0eaf5; border-radius: 40px; padding: 8px 18px;
-    font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700; color: #4a6885;
-    cursor: pointer; white-space: nowrap; transition: all 0.2s;
+    background: white;
+    border: 2px solid #e0eaf5;
+    border-radius: 40px;
+    padding: 8px 18px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px; font-weight: 700;
+    color: #4a6885;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
   }
   .tab-btn:hover { border-color: var(--sky); background: var(--soft); }
   .tab-btn.active { background: var(--navy); color: white; border-color: var(--navy); }
 
+  /* ---- MAIN CONTENT ---- */
   main { padding: 0 16px 80px; }
-  .category { margin-bottom: 28px; animation: slideUp 0.3s ease; }
+
+  .category {
+    margin-bottom: 28px;
+    animation: slideUp 0.3s ease;
+  }
   @keyframes slideUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
-  .category-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; padding: 0 4px; }
+
+  .category-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 12px; padding: 0 4px;
+  }
   .category-icon { font-size: 24px; }
-  .category-title { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); flex: 1; }
-  .category-count { background: var(--sky); color: var(--navy); border-radius: 20px; padding: 2px 10px; font-size: 12px; font-weight: 700; }
+  .category-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; color: var(--navy);
+    flex: 1;
+  }
+  .category-count {
+    background: var(--sky); color: var(--navy);
+    border-radius: 20px; padding: 2px 10px;
+    font-size: 12px; font-weight: 700;
+  }
 
   .subcategory-label {
     font-size: 11px; font-weight: 700; letter-spacing: 1px;
-    text-transform: uppercase; color: var(--coral); margin: 16px 0 8px 4px;
+    text-transform: uppercase; color: var(--coral);
+    margin: 16px 0 8px 4px;
   }
 
-  .gift-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
+  /* ---- GIFT CARD ---- */
+  .gift-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 10px;
+  }
 
   .gift-card {
-    background: white; border-radius: 16px; padding: 16px 18px;
-    display: flex; align-items: center; gap: 14px; cursor: pointer;
-    border: 2px solid transparent; box-shadow: 0 2px 8px rgba(26,58,92,0.06);
-    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); position: relative; overflow: hidden;
+    background: white;
+    border-radius: 16px;
+    padding: 16px 18px;
+    display: flex; align-items: center; gap: 14px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    box-shadow: 0 2px 8px rgba(26,58,92,0.06);
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
   }
   .gift-card::before {
-    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 4px;
     background: linear-gradient(180deg, var(--sky), var(--mint));
-    border-radius: 4px 0 0 4px; opacity: 0; transition: opacity 0.2s;
+    border-radius: 4px 0 0 4px;
+    opacity: 0;
+    transition: opacity 0.2s;
   }
-  .gift-card:hover:not(.taken) { box-shadow: 0 8px 24px rgba(26,58,92,0.12); border-color: var(--sky); }
-  .gift-card:hover:not(.taken) .gift-check { background: var(--sky); border-color: #7ec8e3; }
-  .gift-card:active:not(.taken) { transform: scale(0.98); -webkit-tap-highlight-color: transparent; }
+  .gift-card:hover:not(.taken) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(26,58,92,0.12);
+    border-color: var(--sky);
+  }
   .gift-card:hover:not(.taken)::before { opacity: 1; }
-  .gift-card.taken { background: #f8f9fb; cursor: default; opacity: 0.65; }
+  .gift-card:hover:not(.taken) .gift-check { background: var(--sky); border-color: #7ec8e3; }
+  .gift-card:active:not(.taken) { transform: scale(0.97); }
+
+  .gift-card.taken {
+    background: #f8f9fb;
+    cursor: default;
+    opacity: 0.65;
+  }
   .gift-card.taken .gift-name { text-decoration: line-through; color: #9ab; }
 
   .gift-check {
-    width: 36px; height: 36px; border-radius: 50%; border: 2.5px solid #c8d8e8;
-    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); font-size: 16px; background: white;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    border: 2.5px solid #c8d8e8;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    font-size: 18px;
+    background: white;
   }
-  .gift-card.taken .gift-check { background: #4aabcc; border-color: #4aabcc; color: white; transform: scale(1.1); font-size: 18px; }
+  .gift-card.taken .gift-check {
+    background: #4aabcc;
+    border-color: #4aabcc;
+    color: white;
+    transform: scale(1.1);
+    font-size: 20px;
+  }
+
   .gift-info { flex: 1; min-width: 0; }
-  .gift-name { font-size: 15px; font-weight: 600; line-height: 1.4; }
-  .gift-taker { font-size: 11px; color: #5dc4a0; font-weight: 700; margin-top: 2px; display: flex; align-items: center; gap: 4px; }
-
-  /* .gift-btn-hidden {
-    background: var(--sky); color: var(--navy); border: none; border-radius: 20px;
-    padding: 6px 14px; font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 700;
-    cursor: pointer; flex-shrink: 0; transition: all 0.2s; white-space: nowrap;
+  .gift-name { font-size: 14px; font-weight: 600; line-height: 1.3; }
+  .gift-taker {
+    font-size: 11px; color: #5dc4a0; font-weight: 700;
+    margin-top: 2px; display: flex; align-items: center; gap: 4px;
   }
-  }/* end hidden */
-  .gift-card.taken /* .gift-btn-hidden { display: none; }
 
+
+
+  /* ---- MODAL ---- */
   .overlay {
-    display: none; position: fixed; inset: 0; background: rgba(10,30,60,0.5);
-    backdrop-filter: blur(4px); z-index: 1000; align-items: center; justify-content: center; padding: 20px;
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(10,30,60,0.5);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    align-items: center; justify-content: center;
+    padding: 20px;
   }
   .overlay.show { display: flex; }
+
   .modal {
-    background: white; border-radius: 28px; padding: 36px 32px;
-    max-width: 420px; width: 100%; text-align: center;
+    background: white;
+    border-radius: 28px;
+    padding: 36px 32px;
+    max-width: 420px; width: 100%;
+    text-align: center;
     box-shadow: 0 24px 80px rgba(10,30,60,0.25);
     animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
   @keyframes popIn { from{opacity:0;transform:scale(0.85)} to{opacity:1;transform:scale(1)} }
   .modal-emoji { font-size: 52px; margin-bottom: 12px; display: block; }
-  .modal h2 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--navy); margin-bottom: 6px; }
-  .modal-gift-name { font-size: 18px; font-weight: 700; color: var(--coral); margin-bottom: 16px; }
+  .modal h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .modal-gift-name {
+    font-size: 18px; font-weight: 700;
+    color: var(--coral); margin-bottom: 16px;
+  }
   .modal p { font-size: 14px; color: #4a6885; margin-bottom: 20px; line-height: 1.5; }
-  .modal label { display: block; text-align: left; font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+
+  .modal label {
+    display: block; text-align: left;
+    font-size: 13px; font-weight: 700; color: var(--navy);
+    margin-bottom: 6px;
+  }
   .modal input {
-    width: 100%; border: 2px solid #e0eaf5; border-radius: 12px; padding: 12px 16px;
-    font-family: 'Nunito', sans-serif; font-size: 15px; outline: none;
-    transition: border-color 0.2s; margin-bottom: 20px;
+    width: 100%;
+    border: 2px solid #e0eaf5;
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+    margin-bottom: 20px;
   }
   .modal input:focus { border-color: var(--sky); }
+
   .modal-actions { display: flex; gap: 10px; }
   .btn-confirm {
-    flex: 1; background: var(--navy); color: white; border: none; border-radius: 14px; padding: 14px;
-    font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.2s;
+    flex: 1; background: var(--navy); color: white;
+    border: none; border-radius: 14px; padding: 14px;
+    font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 700;
+    cursor: pointer; transition: all 0.2s;
   }
   .btn-confirm:hover { background: #0e2540; transform: translateY(-1px); }
-  .btn-confirm:disabled { opacity: 0.6; cursor: default; transform: none; }
   .btn-cancel {
-    flex: 1; background: #f0f5fa; color: #4a6885; border: none; border-radius: 14px; padding: 14px;
-    font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer;
+    flex: 1; background: #f0f5fa; color: #4a6885;
+    border: none; border-radius: 14px; padding: 14px;
+    font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 700;
+    cursor: pointer;
   }
 
+  /* ---- SUCCESS TOAST ---- */
   .toast {
     position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
-    background: var(--navy); color: white; padding: 14px 24px; border-radius: 40px;
-    font-size: 14px; font-weight: 700; box-shadow: 0 8px 32px rgba(26,58,92,0.3);
-    z-index: 2000; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); white-space: nowrap;
+    background: var(--navy); color: white;
+    padding: 14px 24px; border-radius: 40px;
+    font-size: 14px; font-weight: 700;
+    box-shadow: 0 8px 32px rgba(26,58,92,0.3);
+    z-index: 2000; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    white-space: nowrap;
   }
   .toast.show { transform: translateX(-50%) translateY(0); }
 
+  /* ---- NO RESULTS ---- */
   .empty { text-align: center; padding: 48px 24px; color: #8aabcc; }
   .empty-icon { font-size: 48px; margin-bottom: 12px; }
 
-  /* Loading overlay */
-  .loading-overlay {
-    position: fixed; inset: 0; background: var(--cream);
-    display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999;
+  /* ---- FOOTER ---- */
+  footer {
+    text-align: center; padding: 16px;
+    font-size: 12px; color: #8aabcc;
   }
-  .loading-emoji { font-size: 56px; animation: float 1s ease-in-out infinite; }
-  .loading-text { margin-top: 16px; font-size: 16px; font-weight: 700; color: var(--navy); }
-
-  /* Error */
-  .error-box {
-    background: white; margin: 20px 16px; border-radius: 20px; padding: 24px;
-    border-left: 4px solid var(--coral); box-shadow: 0 2px 12px rgba(26,58,92,0.07);
-    text-align: center;
-  }
-  .error-box h3 { color: var(--coral); margin-bottom: 8px; }
-  .error-box p { font-size: 13px; color: #5a7a99; }
-  .error-box code { background: #f5f5f5; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
-
-  footer { text-align: center; padding: 16px; font-size: 12px; color: #8aabcc; }
 </style>
 </head>
 <body>
 
-<!-- NAME MODAL -->
-<div class="overlay" id="nameOverlay" style="display:flex;">
-  <div class="modal">
-    <span class="modal-emoji">💙</span>
-    <h2>¡Bienvenid@!</h2>
-    <p class="modal-gift-name" style="color:var(--navy);font-size:16px;">Lista de regalos de <strong>Benjamín</strong></p>
-    <p>¿Cómo te llamas? Así Benjamín sabrá quién le trajo cada regalo 💙</p>
-    <label for="name-input">Tu nombre</label>
-    <input type="text" id="name-input" placeholder="Ej: Tía Carmen" maxlength="40" />
-    <div class="modal-actions" style="flex-direction:column;gap:10px;">
-      <button class="btn-confirm" id="nameSubmitBtn" onclick="submitName()">¡Ver la lista de regalos! 🎁</button>
-    </div>
-  </div>
-</div>
-
-<!-- LOADING -->
-<div class="loading-overlay" id="loadingOverlay">
-  <span class="loading-emoji">💙</span>
-  <div class="loading-text">Cargando lista de Benjamín...</div>
-</div>
-
 <!-- HERO -->
-<div class="hero" id="heroSection" style="display:none;">
+<div class="hero">
   <span class="hero-emoji">💙</span>
   <h1>Lista de Regalos de Benjamín</h1>
   <p>¡Elige tu regalo y ayuda a darle la bienvenida! 💙</p>
@@ -225,16 +318,16 @@
 </div>
 
 <!-- INSTRUCTIONS -->
-<div class="instructions" id="instructionsSection" style="display:none;">
+<div class="instructions">
   <div class="instructions-icon">👆</div>
   <div>
     <h3>¿Cómo funciona?</h3>
-    <p>Toca cualquier regalo de la lista y escribe tu nombre. ¡Así todos saben quién trae qué y nadie se repite!</p>
+    <p>Toca el regalo que quieres dar y escribe tu nombre en la ventana que aparece. ¡Así todos saben quién trae qué y nadie se repite!</p>
   </div>
 </div>
 
 <!-- TABS -->
-<div class="tabs-wrapper" id="tabsWrapper" style="display:none;">
+<div class="tabs-wrapper">
   <div class="tabs" id="tabs"></div>
 </div>
 
@@ -252,7 +345,7 @@
     <input type="text" id="giver-input" placeholder="Ej: Tía Carmen" maxlength="40" />
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
-      <button class="btn-confirm" id="confirmBtn" onclick="confirmGift()">¡Lo doy yo! 🎀</button>
+      <button class="btn-confirm" onclick="confirmGift()">¡Lo doy yo! 🎀</button>
     </div>
   </div>
 </div>
@@ -260,17 +353,19 @@
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<footer id="footerSection" style="display:none;">Hecho con amor para Benjamín 💙</footer>
+<footer>Hecho con amor para Benjamín 💙</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="config.js"></script>
 <script>
-// =============================================
-//  CATEGORÍAS Y DATOS
-// =============================================
+// Supabase
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 const categories = [
   {
-    id: 'ropa', icon: '👕', name: 'Ropita',
+    id: 'ropa',
+    icon: '👕',
+    name: 'Ropita',
     subcategories: [
       { label: '👶 0–3 meses', items: ['Bodies manga corta con botones','Bodies manga larga con botones','Pijamas enterizos con botones','Mamelucos','Pantalones con pie','Conjuntos para salir','Gorritos','Medias','Saquitos o chaquetas ligeras','Mantas o arrullos','Baberos','Pañalera','Primera muda'] },
       { label: '👶 3–6 meses', items: ['Bodies manga corta con botones (3-6m)','Bodies manga larga con botones (3-6m)','Pijamas enterizos con botones (3-6m)','Mamelucos (3-6m)','Pantalones (3-6m)','Conjuntos completos (3-6m)','Sacos (3-6m)','Medias (3-6m)','Baberos (3-6m)','Gorritos (3-6m)'] },
@@ -279,143 +374,63 @@ const categories = [
     ]
   },
   {
-    id: 'higiene', icon: '🧴', name: 'Higiene',
+    id: 'higiene',
+    icon: '🧴',
+    name: 'Higiene',
     subcategories: [
       { label: '🧴 Cuidado e higiene', items: ['Pañales talla 1','Pañales talla 2','Pañales talla 3','Pañales talla 4','Toallitas húmedas','Crema antipañalitis (Almipro)','Termómetro digital','Cortaúñas para bebé','Aspirador nasal','Shampoo para bebé','Jabón suave para bebé'] }
     ]
   },
   {
-    id: 'bano', icon: '🛁', name: 'Baño',
+    id: 'bano',
+    icon: '🛁',
+    name: 'Baño',
     subcategories: [
       { label: '🛁 Hora del baño', items: ['Toallas con capucha','Cepillo suave para bebé'] }
     ]
   },
   {
-    id: 'sueno', icon: '💤', name: 'Sueño',
+    id: 'sueno',
+    icon: '💤',
+    name: 'Sueño',
     subcategories: [
       { label: '💤 Sueño', items: ['Cuna o moisés','Colchón','Protector impermeable para colchón','Juegos de sábanas','Cobija o manta ligera'] }
     ]
   },
   {
-    id: 'salidas', icon: '🚗', name: 'Salidas',
+    id: 'salidas',
+    icon: '🚗',
+    name: 'Salidas',
     subcategories: [
       { label: '🚗 Salidas y transporte', items: ['Coche o carriola','Silla para carro','Fular portabebé','Mochila/cargador ergonómico','Pañalera de viaje','Cambiador portátil','Cobija para salidas'] }
     ]
   },
   {
-    id: 'extras', icon: '🧸', name: 'Extras',
+    id: 'extras',
+    icon: '🧸',
+    name: 'Extras',
     subcategories: [
       { label: '🧸 Extras útiles', items: ['Gimnasio para bebé','Sonajeros','Luz nocturna','Monitor para bebé'] }
     ]
   },
 ];
 
-// Índice plano de todos los ítems con IDs únicos
+// Build flat item index with unique IDs
 const allItems = {};
 categories.forEach(cat => {
   cat.subcategories.forEach(sub => {
     sub.items.forEach((item, i) => {
-      const id = `${cat.id}__${sub.label.replace(/[^a-z0-9]/gi,'_')}__${i}`;
+      const id = `${cat.id}_${sub.label}_${i}`;
       allItems[id] = { id, name: item, catId: cat.id, sub: sub.label, taken: false, taker: '' };
     });
   });
 });
 
-// =============================================
-//  SUPABASE
-// =============================================
-const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+// State
 let activeTab = 'all';
 let pendingItemId = null;
-let currentUser = '';
 
-function submitName() {
-  const val = document.getElementById('name-input').value.trim();
-  if (!val) {
-    document.getElementById('name-input').style.borderColor = '#e8856a';
-    document.getElementById('name-input').focus();
-    setTimeout(() => document.getElementById('name-input').style.borderColor = '', 800);
-    return;
-  }
-  currentUser = val;
-  localStorage.setItem('benjamin_user_name', val);
-  document.getElementById('nameOverlay').style.display = 'none';
-  showMainUI();
-}
-
-function showMainUI() {
-  document.getElementById('heroSection').style.display = 'block';
-  document.getElementById('instructionsSection').style.display = 'flex';
-  document.getElementById('tabsWrapper').style.display = 'block';
-  document.getElementById('footerSection').style.display = 'block';
-  renderTabs();
-  renderContent();
-  updateStats();
-}
-
-// =============================================
-//  INIT
-// =============================================
-async function init() {
-  try {
-    const { data, error } = await db
-      .from('gifts')
-      .select('gift_id, gift_name, taken_by');
-
-    if (error) throw error;
-
-    // Marcar regalos ya tomados
-    data.forEach(row => {
-      if (allItems[row.gift_id]) {
-        allItems[row.gift_id].taken = true;
-        allItems[row.gift_id].taker = row.taken_by;
-      }
-    });
-
-    // Tiempo real
-    db.channel('gifts-rt')
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'gifts' }, (payload) => {
-        const r = payload.new;
-        if (allItems[r.gift_id]) {
-          allItems[r.gift_id].taken = true;
-          allItems[r.gift_id].taker = r.taken_by;
-          // Actualizar solo la tarjeta afectada si está visible
-          const card = document.getElementById('card-' + r.gift_id);
-          if (card) {
-            card.outerHTML = giftCardHtml(allItems[r.gift_id]);
-          }
-          updateStats();
-        }
-      })
-      .subscribe();
-
-    document.getElementById('loadingOverlay').style.display = 'none';
-
-    const savedName = localStorage.getItem('benjamin_user_name');
-    if (savedName) {
-      currentUser = savedName;
-      showMainUI();
-    } else {
-      document.getElementById('nameOverlay').style.display = 'flex';
-    }
-
-  } catch (err) {
-    console.error(err);
-    document.getElementById('loadingOverlay').style.display = 'none';
-    document.getElementById('heroSection').style.display = 'block';
-    document.getElementById('main-content').innerHTML = `
-      <div class="error-box">
-        <h3>⚠️ Error de conexión</h3>
-        <p>No se pudo conectar con Supabase.<br/>Verifica el archivo <code>config.js</code> y que la tabla esté creada.</p>
-        <p style="margin-top:8px;font-size:11px;color:#aaa;">${err.message}</p>
-      </div>`;
-  }
-}
-
-// =============================================
-//  STATS
-// =============================================
 function updateStats() {
   const total = Object.keys(allItems).length;
   const taken = Object.values(allItems).filter(i => i.taken).length;
@@ -424,9 +439,6 @@ function updateStats() {
   document.getElementById('taken-count').textContent = taken;
 }
 
-// =============================================
-//  TABS
-// =============================================
 function renderTabs() {
   const tabs = document.getElementById('tabs');
   const all = [{ id: 'all', icon: '🎁', name: 'Todos' }, ...categories];
@@ -443,17 +455,11 @@ function setTab(id) {
   renderContent();
 }
 
-// =============================================
-//  CONTENT
-// =============================================
 function renderContent() {
   const main = document.getElementById('main-content');
   const cats = activeTab === 'all' ? categories : categories.filter(c => c.id === activeTab);
 
-  if (cats.length === 0) {
-    main.innerHTML = '<div class="empty"><div class="empty-icon">🔍</div><p>No hay nada aquí.</p></div>';
-    return;
-  }
+  if (cats.length === 0) { main.innerHTML = '<div class="empty"><div class="empty-icon">🔍</div><p>No hay nada aquí.</p></div>'; return; }
 
   main.innerHTML = cats.map(cat => {
     const catItems = Object.values(allItems).filter(i => i.catId === cat.id);
@@ -481,9 +487,9 @@ function renderContent() {
 }
 
 function giftCardHtml(item) {
-  const clickAttr = !item.taken ? `onclick="openModal('${item.id}')"` : '';
+  const click = !item.taken ? `onclick="openModal('${item.id}')"` : '';
   return `
-    <div class="gift-card ${item.taken ? 'taken' : ''}" id="card-${item.id}" ${clickAttr}>
+    <div class="gift-card ${item.taken ? 'taken' : ''}" id="card-${item.id}" ${click}>
       <div class="gift-check">${item.taken ? '✓' : ''}</div>
       <div class="gift-info">
         <div class="gift-name">${item.name}</div>
@@ -493,9 +499,6 @@ function giftCardHtml(item) {
   `;
 }
 
-// =============================================
-//  MODAL
-// =============================================
 function openModal(id) {
   pendingItemId = id;
   const item = allItems[id];
@@ -515,10 +518,6 @@ document.getElementById('giver-input').addEventListener('keydown', e => {
   if (e.key === 'Escape') closeModal();
 });
 
-document.getElementById('name-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter') submitName();
-});
-
 document.getElementById('overlay').addEventListener('click', e => {
   if (e.target === document.getElementById('overlay')) closeModal();
 });
@@ -531,44 +530,24 @@ async function confirmGift() {
     setTimeout(() => document.getElementById('giver-input').style.borderColor = '', 800);
     return;
   }
-
-  const btn = document.getElementById('confirmBtn');
+  const btn = document.querySelector('.btn-confirm');
   btn.disabled = true;
   btn.textContent = 'Guardando...';
-
   try {
-    // Verificar si ya fue tomado (carrera)
-    const { data: existing } = await db
-      .from('gifts')
-      .select('gift_id')
-      .eq('gift_id', pendingItemId)
-      .maybeSingle();
-
+    const { data: existing } = await db.from('gifts').select('gift_id').eq('gift_id', pendingItemId).maybeSingle();
     if (existing) {
       showToast('⚠️ Alguien más acaba de elegir ese regalo. ¡Elige otro!');
       allItems[pendingItemId].taken = true;
-      closeModal();
-      renderContent();
-      updateStats();
-      return;
+      closeModal(); renderContent(); updateStats(); return;
     }
-
     const item = allItems[pendingItemId];
-    const { error } = await db
-      .from('gifts')
-      .insert({ gift_id: pendingItemId, gift_name: item.name, taken_by: name });
-
+    const { error } = await db.from('gifts').insert({ gift_id: pendingItemId, gift_name: item.name, taken_by: name });
     if (error) throw error;
-
-    allItems[pendingItemId].taken = true;
-    allItems[pendingItemId].taker = name;
-    closeModal();
-    renderContent();
-    updateStats();
+    item.taken = true; item.taker = name;
+    closeModal(); renderContent(); updateStats();
     showToast(`🎀 ¡Gracias ${name}! Anotamos tu regalo.`);
-
-  } catch (err) {
-    console.error(err);
+  } catch(e) {
+    console.error(e);
     showToast('Error al guardar. Intenta de nuevo.');
   } finally {
     btn.disabled = false;
@@ -576,9 +555,6 @@ async function confirmGift() {
   }
 }
 
-// =============================================
-//  TOAST
-// =============================================
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -586,9 +562,37 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 3500);
 }
 
-// =============================================
-//  START
-// =============================================
+// Init
+async function init() {
+  try {
+    const { data, error } = await db.from('gifts').select('gift_id, gift_name, taken_by');
+    if (error) throw error;
+    data.forEach(row => {
+      if (allItems[row.gift_id]) {
+        allItems[row.gift_id].taken = true;
+        allItems[row.gift_id].taker = row.taken_by;
+      }
+    });
+    // Tiempo real
+    db.channel('gifts-rt')
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'gifts' }, (payload) => {
+        const r = payload.new;
+        if (allItems[r.gift_id]) {
+          allItems[r.gift_id].taken = true;
+          allItems[r.gift_id].taker = r.taken_by;
+          const card = document.getElementById('card-' + r.gift_id);
+          if (card) card.outerHTML = giftCardHtml(allItems[r.gift_id]);
+          updateStats();
+        }
+      })
+      .subscribe();
+  } catch(e) {
+    console.error('Supabase error:', e);
+  }
+  renderTabs();
+  renderContent();
+  updateStats();
+}
 init();
 </script>
 </body>
