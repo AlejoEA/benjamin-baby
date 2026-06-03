@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lista de Regalos – Benjamín 👶</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --cream: #fff8f0;
+      --peach: #ffb38a;
+      --blush: #ffd6c0;
+      --mint: #c8f0e8;
+      --sage: #7ec8b8;
+      --navy: #1a2e4a;
+      --gold: #e8a44a;
+      --white: #ffffff;
+      --shadow: 0 4px 24px rgba(26,46,74,0.10);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--cream);
+      min-height: 100vh;
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(255,179,138,0.18) 0%, transparent 50%),
+        radial-gradient(circle at 90% 80%, rgba(200,240,232,0.25) 0%, transparent 50%);
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 48px 20px 32px;
+      position: relative;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--blush);
+      color: var(--navy);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 99px;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      color: var(--navy);
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+    .hero h1 span {
+      font-style: italic;
+      color: var(--peach);
+    }
+    .hero p {
+      color: #6b7f96;
+      font-size: 16px;
+      max-width: 460px;
+      margin: 0 auto 8px;
+      line-height: 1.6;
+    }
+    .hero-stars {
+      font-size: 22px;
+      letter-spacing: 4px;
+      margin: 8px 0;
+    }
+
+    /* COUNTER */
+    .counter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      padding: 16px 20px 0;
+    }
+    .counter-item {
+      text-align: center;
+    }
+    .counter-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--navy);
+      font-weight: 700;
+    }
+    .counter-label {
+      font-size: 12px;
+      color: #8a9bb0;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* NAME MODAL */
+    .name-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(26,46,74,0.45);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+    .name-card {
+      background: var(--white);
+      border-radius: 28px;
+      padding: 40px 36px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(26,46,74,0.20);
+    }
+    .name-card .emoji { font-size: 48px; margin-bottom: 12px; }
+    .name-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .name-card p {
+      color: #6b7f96;
+      font-size: 15px;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    .name-input {
+      width: 100%;
+      padding: 14px 18px;
+      border: 2px solid var(--blush);
+      border-radius: 14px;
+      font-size: 16px;
+      font-family: 'Nunito', sans-serif;
+      color: var(--navy);
+      outline: none;
+      transition: border-color 0.2s;
+      margin-bottom: 16px;
+    }
+    .name-input:focus { border-color: var(--peach); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--peach), var(--gold));
+      color: var(--white);
+      border: none;
+      padding: 14px 32px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: 'Nunito', sans-serif;
+      cursor: pointer;
+      width: 100%;
+      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 4px 16px rgba(232,164,74,0.30);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,164,74,0.35); }
+    .btn-primary:active { transform: translateY(0); }
+
+    /* GIFT MODAL */
+    .gift-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(26,46,74,0.45);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+    .gift-card {
+      background: var(--white);
+      border-radius: 28px;
+      padding: 36px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(26,46,74,0.20);
+    }
+    .gift-card .emoji { font-size: 40px; margin-bottom: 10px; }
+    .gift-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+    .gift-card .gift-name {
+      background: var(--blush);
+      color: var(--navy);
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      margin: 14px 0;
+    }
+    .gift-card p { color: #6b7f96; font-size: 14px; margin-bottom: 20px; }
+    .btn-confirm {
+      background: linear-gradient(135deg, var(--sage), #4dab96);
+      color: white;
+      border: none;
+      padding: 13px 28px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: 'Nunito', sans-serif;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom: 10px;
+      transition: transform 0.15s;
+    }
+    .btn-confirm:hover { transform: translateY(-2px); }
+    .btn-cancel {
+      background: transparent;
+      color: #8a9bb0;
+      border: 2px solid #e8edf3;
+      padding: 11px 28px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-family: 'Nunito', sans-serif;
+      cursor: pointer;
+      width: 100%;
+      transition: border-color 0.2s;
+    }
+    .btn-cancel:hover { border-color: var(--blush); }
+
+    /* MAIN CONTENT */
+    .content {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 24px 16px 60px;
+    }
+
+    /* SECTION */
+    .section {
+      margin-bottom: 32px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding: 12px 20px;
+      background: var(--white);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+    }
+    .section-icon { font-size: 22px; }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--navy);
+      flex: 1;
+    }
+    .section-count {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--sage);
+      background: var(--mint);
+      padding: 3px 10px;
+      border-radius: 99px;
+    }
+    .section-count.empty { color: #bdc8d4; background: #f0f3f6; }
+
+    /* GRID */
+    .gifts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    /* GIFT ITEM */
+    .gift-item {
+      background: var(--white);
+      border: 2px solid transparent;
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 2px 12px rgba(26,46,74,0.07);
+      position: relative;
+      animation: fadeIn 0.35s ease both;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .gift-item:hover {
+      border-color: var(--peach);
+      box-shadow: 0 6px 20px rgba(255,179,138,0.25);
+      transform: translateY(-2px);
+    }
+    .gift-item .item-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .gift-item .item-sub {
+      font-size: 12px;
+      color: #8a9bb0;
+    }
+    .gift-item .pick-btn {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--peach);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .gift-item:hover .pick-btn { opacity: 1; }
+
+    /* TAKEN ITEM */
+    .gift-item.taken {
+      background: #f8faf9;
+      border-color: #e8edf3;
+      cursor: default;
+      opacity: 0.55;
+    }
+    .gift-item.taken:hover {
+      transform: none;
+      box-shadow: 0 2px 12px rgba(26,46,74,0.07);
+      border-color: #e8edf3;
+    }
+    .gift-item.taken .item-name { color: #8a9bb0; }
+    .taken-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--sage);
+      font-weight: 700;
+      margin-top: 4px;
+    }
+    .taken-badge::before { content: "✓ "; }
+
+    /* SUCCESS TOAST */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--navy);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 8px 32px rgba(26,46,74,0.25);
+      transition: transform 0.3s ease;
+      z-index: 999;
+      white-space: nowrap;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* STATUS BAR */
+    .status-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid #eef1f5;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 12px rgba(26,46,74,0.06);
+    }
+    .status-user {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .status-user span { color: var(--peach); }
+    .btn-change {
+      font-size: 12px;
+      color: #8a9bb0;
+      background: none;
+      border: 1px solid #e8edf3;
+      padding: 5px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+    }
+    .btn-change:hover { border-color: var(--blush); color: var(--navy); }
+
+    /* LOADING */
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--cream);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+    .loading-emoji { font-size: 48px; animation: bounce 0.8s infinite alternate; }
+    @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-12px); } }
+    .loading-text { color: var(--navy); margin-top: 16px; font-weight: 700; }
+
+    /* PROGRESS BAR */
+    .progress-wrap {
+      background: var(--blush);
+      border-radius: 99px;
+      height: 8px;
+      margin: 12px auto;
+      max-width: 320px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--peach), var(--gold));
+      border-radius: 99px;
+      transition: width 0.5s ease;
+    }
+
+    /* ERROR */
+    .error-msg {
+      text-align: center;
+      padding: 60px 20px;
+      color: #c0392b;
+    }
+    .error-msg h2 { font-size: 1.3rem; margin-bottom: 8px; }
+    .error-msg p { font-size: 14px; color: #6b7f96; }
+    .error-msg code { background: #fef0f0; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+
+    @media (max-width: 480px) {
+      .gifts-grid { grid-template-columns: 1fr 1fr; }
+      .hero { padding: 32px 16px 20px; }
+      .name-card { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-emoji">👶</div>
+  <div class="loading-text">Cargando lista de Benjamín...</div>
+</div>
+
+<!-- NAME MODAL -->
+<div class="name-modal" id="nameModal" style="display:none;">
+  <div class="name-card">
+    <div class="emoji">🎁</div>
+    <h2>¡Bienvenid@!</h2>
+    <p>¿Cómo te llamas? Así sabremos quién escoge cada regalo para el pequeño <strong>Benjamín</strong>.</p>
+    <input class="name-input" id="nameInput" type="text" placeholder="Tu nombre completo" maxlength="50" autocomplete="name"/>
+    <button class="btn-primary" id="nameSubmit">¡Entrar a la lista! 🎉</button>
+  </div>
+</div>
+
+<!-- GIFT CONFIRM MODAL -->
+<div class="gift-modal" id="giftModal" style="display:none;">
+  <div class="gift-card">
+    <div class="emoji">🎀</div>
+    <h3>¿Llevarás este regalo?</h3>
+    <div class="gift-name" id="confirmGiftName"></div>
+    <p>Una vez que lo elijas, quedará reservado para ti y desaparecerá de la lista.</p>
+    <button class="btn-confirm" id="confirmBtn">Sí, ¡este es mi regalo! ✅</button>
+    <button class="btn-cancel" id="cancelBtn">Volver a la lista</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- STATUS BAR (hidden until login) -->
+<div class="status-bar" id="statusBar" style="display:none;">
+  <div class="status-user">Hola, <span id="statusName"></span> 👋</div>
+  <button class="btn-change" id="changeName">Cambiar nombre</button>
+</div>
+
+<!-- HERO -->
+<div class="hero" id="heroSection" style="display:none;">
+  <div class="hero-badge">Baby Shower</div>
+  <h1>Lista de regalos<br/>para <span>Benjamín</span> 🍼</h1>
+  <p>Elige un regalo de la lista — una vez seleccionado, nadie más podrá escoger el mismo.</p>
+  <div class="hero-stars">⭐ ⭐ ⭐</div>
+  <div class="counter-bar">
+    <div class="counter-item">
+      <div class="counter-num" id="totalCount">–</div>
+      <div class="counter-label">Total</div>
+    </div>
+    <div class="counter-item">
+      <div class="counter-num" id="availCount">–</div>
+      <div class="counter-label">Disponibles</div>
+    </div>
+    <div class="counter-item">
+      <div class="counter-num" id="takenCount">–</div>
+      <div class="counter-label">Elegidos</div>
+    </div>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-fill" id="progressFill" style="width:0%"></div>
+  </div>
+</div>
+
+<div class="content" id="mainContent" style="display:none;"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script>
+// =============================================
+//  DATA – Lista completa de regalos
+// =============================================
+const SECTIONS = [
+  {
+    id: "ropa_0_3",
+    icon: "👕",
+    title: "Ropita 0–3 meses",
+    items: [
+      "Bodies manga corta con botones",
+      "Bodies manga larga con botones",
+      "Pijamas enterizos con botones",
+      "Mamelucos",
+      "Pantalones con pie",
+      "Conjuntos para salir",
+      "Gorritos",
+      "Medias",
+      "Saquitos o chaquetas ligeras",
+      "Mantas o arrullos",
+      "Baberos",
+      "Pañalera",
+      "Primera muda",
+    ]
+  },
+  {
+    id: "ropa_3_6",
+    icon: "👶",
+    title: "Ropita 3–6 meses",
+    items: [
+      "Bodies manga corta con botones (3-6m)",
+      "Bodies manga larga con botones (3-6m)",
+      "Pijamas enterizos con botones (3-6m)",
+      "Mamelucos (3-6m)",
+      "Pantalones (3-6m)",
+      "Conjuntos completos (3-6m)",
+      "Sacos (3-6m)",
+      "Medias (3-6m)",
+      "Baberos (3-6m)",
+      "Gorritos (3-6m)",
+    ]
+  },
+  {
+    id: "ropa_6_9",
+    icon: "🧸",
+    title: "Ropita 6–9 meses",
+    items: [
+      "Bodies con botones (6-9m)",
+      "Pijamas con botones (6-9m)",
+      "Mamelucos (6-9m)",
+      "Pantalones (6-9m)",
+      "Conjuntos para salir (6-9m)",
+      "Sacos (6-9m)",
+      "Medias (6-9m)",
+      "Gorro o gorrito (6-9m)",
+    ]
+  },
+  {
+    id: "ropa_9_12",
+    icon: "🌟",
+    title: "Ropita 9–12 meses",
+    items: [
+      "Bodies (9-12m)",
+      "Pijamas (9-12m)",
+      "Mamelucos (9-12m)",
+      "Pantalones (9-12m)",
+      "Conjuntos completos (9-12m)",
+      "Sacos (9-12m)",
+      "Medias (9-12m)",
+    ]
+  },
+  {
+    id: "higiene",
+    icon: "💊",
+    title: "Cuidado e higiene",
+    items: [
+      "Pañales talla 1",
+      "Pañales talla 2",
+      "Pañales talla 3",
+      "Pañales talla 4",
+      "Toallitas húmedas",
+      "Crema antipañalitis (Almipro)",
+      "Termómetro digital",
+      "Cortaúñas para bebé",
+      "Aspirador nasal",
+      "Shampoo para bebé",
+      "Jabón suave para bebé",
+    ]
+  },
+  {
+    id: "bano",
+    icon: "🛁",
+    title: "Hora del baño",
+    items: [
+      "Toallas con capucha",
+      "Cepillo suave para bebé",
+    ]
+  },
+  {
+    id: "sueno",
+    icon: "💤",
+    title: "Sueño",
+    items: [
+      "Cuna o moisés",
+      "Colchón",
+      "Protector impermeable para colchón",
+      "Juegos de sábanas",
+      "Cobija o manta ligera",
+    ]
+  },
+  {
+    id: "salidas",
+    icon: "🚗",
+    title: "Salidas y transporte",
+    items: [
+      "Coche o carriola",
+      "Silla para carro",
+      "Fular portabebé",
+      "Mochila/cargador ergonómico",
+      "Pañalera de salida",
+      "Cambiador portátil",
+      "Cobija para salidas",
+    ]
+  },
+  {
+    id: "extras",
+    icon: "✨",
+    title: "Extras útiles",
+    items: [
+      "Gimnasio para bebé",
+      "Sonajeros",
+      "Luz nocturna",
+      "Monitor para bebé",
+    ]
+  },
+];
+
+// =============================================
+//  SUPABASE SETUP
+// =============================================
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// =============================================
+//  STATE
+// =============================================
+let userName = localStorage.getItem('benjamin_shower_name') || '';
+let takenGifts = {}; // { gift_id: { name, taken_by } }
+let pendingGiftId = null;
+let pendingGiftName = null;
+
+// =============================================
+//  GIFT ID: section_id + index
+// =============================================
+function makeGiftId(sectionId, index) {
+  return `${sectionId}__${index}`;
+}
+
+// =============================================
+//  INIT
+// =============================================
+async function init() {
+  try {
+    // Load current taken gifts
+    const { data, error } = await supabase
+      .from('gifts')
+      .select('gift_id, gift_name, taken_by');
+
+    if (error) throw error;
+
+    data.forEach(row => {
+      takenGifts[row.gift_id] = { name: row.gift_name, taken_by: row.taken_by };
+    });
+
+    // Subscribe to realtime changes
+    supabase
+      .channel('gifts-channel')
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'gifts' }, (payload) => {
+        const r = payload.new;
+        takenGifts[r.gift_id] = { name: r.gift_name, taken_by: r.taken_by };
+        renderAll();
+      })
+      .subscribe();
+
+    document.getElementById('loadingOverlay').style.display = 'none';
+
+    if (!userName) {
+      document.getElementById('nameModal').style.display = 'flex';
+    } else {
+      showMain();
+    }
+  } catch (err) {
+    console.error(err);
+    document.getElementById('loadingOverlay').innerHTML = `
+      <div class="error-msg">
+        <h2>⚠️ Error de conexión</h2>
+        <p>No se pudo conectar con Supabase.<br/>Verifica el archivo <code>config.js</code> y que la tabla esté creada.</p>
+        <p style="margin-top:12px;font-size:12px;">${err.message}</p>
+      </div>`;
+  }
+}
+
+// =============================================
+//  SHOW MAIN
+// =============================================
+function showMain() {
+  document.getElementById('nameModal').style.display = 'none';
+  document.getElementById('statusBar').style.display = 'flex';
+  document.getElementById('heroSection').style.display = 'block';
+  document.getElementById('mainContent').style.display = 'block';
+  document.getElementById('statusName').textContent = userName;
+  renderAll();
+}
+
+// =============================================
+//  RENDER
+// =============================================
+function renderAll() {
+  const container = document.getElementById('mainContent');
+  let totalItems = 0;
+  let takenCount = 0;
+
+  container.innerHTML = '';
+
+  SECTIONS.forEach(section => {
+    const availableItems = section.items.filter((_, i) => {
+      const gid = makeGiftId(section.id, i);
+      return !takenGifts[gid];
+    });
+
+    totalItems += section.items.length;
+    takenCount += section.items.length - availableItems.length;
+
+    // Only show section if it has available items
+    if (availableItems.length === 0) return;
+
+    const sectionEl = document.createElement('div');
+    sectionEl.className = 'section';
+
+    const remaining = availableItems.length;
+    sectionEl.innerHTML = `
+      <div class="section-header">
+        <span class="section-icon">${section.icon}</span>
+        <span class="section-title">${section.title}</span>
+        <span class="section-count${remaining === 0 ? ' empty' : ''}">${remaining} disponibles</span>
+      </div>
+      <div class="gifts-grid" id="grid-${section.id}"></div>
+    `;
+    container.appendChild(sectionEl);
+
+    const grid = document.getElementById(`grid-${section.id}`);
+    section.items.forEach((item, i) => {
+      const gid = makeGiftId(section.id, i);
+      if (takenGifts[gid]) return; // already taken, skip
+
+      const el = document.createElement('div');
+      el.className = 'gift-item';
+      el.innerHTML = `
+        <div class="item-name">${item}</div>
+        <div class="item-sub">${section.title}</div>
+        <div class="pick-btn">Elegir →</div>
+      `;
+      el.addEventListener('click', () => openConfirm(gid, item));
+      grid.appendChild(el);
+    });
+  });
+
+  // Update counters
+  document.getElementById('totalCount').textContent = totalItems;
+  document.getElementById('availCount').textContent = totalItems - takenCount;
+  document.getElementById('takenCount').textContent = takenCount;
+
+  const pct = totalItems > 0 ? Math.round((takenCount / totalItems) * 100) : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+
+  // If all taken
+  if (takenCount === totalItems) {
+    container.innerHTML = `
+      <div style="text-align:center;padding:60px 20px;">
+        <div style="font-size:56px;">🎉</div>
+        <h2 style="font-family:'Playfair Display',serif;color:var(--navy);margin:12px 0;">¡Todos los regalos fueron elegidos!</h2>
+        <p style="color:#6b7f96;">Benjamín va a ser el bebé más querido del mundo. ¡Gracias a todos!</p>
+      </div>`;
+  }
+}
+
+// =============================================
+//  CONFIRM MODAL
+// =============================================
+function openConfirm(giftId, giftName) {
+  pendingGiftId = giftId;
+  pendingGiftName = giftName;
+  document.getElementById('confirmGiftName').textContent = giftName;
+  document.getElementById('giftModal').style.display = 'flex';
+}
+
+function closeConfirm() {
+  document.getElementById('giftModal').style.display = 'none';
+  pendingGiftId = null;
+  pendingGiftName = null;
+}
+
+async function confirmGift() {
+  if (!pendingGiftId) return;
+
+  const btn = document.getElementById('confirmBtn');
+  btn.disabled = true;
+  btn.textContent = 'Guardando...';
+
+  try {
+    // Check if already taken (race condition)
+    const { data: existing } = await supabase
+      .from('gifts')
+      .select('gift_id')
+      .eq('gift_id', pendingGiftId)
+      .single();
+
+    if (existing) {
+      showToast('⚠️ Alguien más acaba de elegir ese regalo. ¡Elige otro!');
+      takenGifts[pendingGiftId] = { name: pendingGiftName, taken_by: '...' };
+      closeConfirm();
+      renderAll();
+      return;
+    }
+
+    const { error } = await supabase
+      .from('gifts')
+      .insert({ gift_id: pendingGiftId, gift_name: pendingGiftName, taken_by: userName });
+
+    if (error) throw error;
+
+    takenGifts[pendingGiftId] = { name: pendingGiftName, taken_by: userName };
+    closeConfirm();
+    renderAll();
+    showToast(`🎁 ¡Listo! "${pendingGiftName || ''}" quedó reservado para ${userName}`);
+  } catch (err) {
+    console.error(err);
+    showToast('Error al guardar. Intenta de nuevo.');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Sí, ¡este es mi regalo! ✅';
+  }
+}
+
+// =============================================
+//  TOAST
+// =============================================
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+// =============================================
+//  EVENTS
+// =============================================
+document.getElementById('nameSubmit').addEventListener('click', () => {
+  const val = document.getElementById('nameInput').value.trim();
+  if (!val) {
+    document.getElementById('nameInput').focus();
+    return;
+  }
+  userName = val;
+  localStorage.setItem('benjamin_shower_name', userName);
+  showMain();
+});
+
+document.getElementById('nameInput').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') document.getElementById('nameSubmit').click();
+});
+
+document.getElementById('confirmBtn').addEventListener('click', confirmGift);
+document.getElementById('cancelBtn').addEventListener('click', closeConfirm);
+
+document.getElementById('changeName').addEventListener('click', () => {
+  localStorage.removeItem('benjamin_shower_name');
+  userName = '';
+  document.getElementById('heroSection').style.display = 'none';
+  document.getElementById('mainContent').style.display = 'none';
+  document.getElementById('statusBar').style.display = 'none';
+  document.getElementById('nameInput').value = '';
+  document.getElementById('nameModal').style.display = 'flex';
+});
+
+// =============================================
+//  START
+// =============================================
+init();
+</script>
+</body>
+</html>
