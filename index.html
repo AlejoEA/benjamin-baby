@@ -7,12 +7,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --cream: #fdf6ee;
+    --cream: #eef6fc;
     --blush: #f9e4d4;
     --sky: #c8e6f5;
     --mint: #d4f0e8;
     --navy: #1a3a5c;
-    --coral: #e8856a;
+    --coral: #3a9abf;
     --gold: #d4a853;
     --soft: #f0f7fb;
   }
@@ -20,7 +20,7 @@
   body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--navy); min-height: 100vh; }
 
   .hero {
-    background: linear-gradient(135deg, #c8e6f5 0%, #d4f0e8 50%, #f9e4d4 100%);
+    background: linear-gradient(135deg, #a8d8f0 0%, #bde4f7 50%, #ceedfb 100%);
     padding: 48px 24px 36px; text-align: center; position: relative; overflow: hidden;
   }
   .hero::before {
@@ -33,7 +33,7 @@
   .hero p { font-size: 16px; color: #4a6885; font-weight: 600; }
   .stats { display: flex; justify-content: center; gap: 32px; margin-top: 24px; flex-wrap: wrap; }
   .stat {
-    background: rgba(255,255,255,0.7); border-radius: 16px; padding: 12px 20px;
+    background: rgba(255,255,255,0.75); border-radius: 16px; padding: 12px 20px;
     backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.9);
   }
   .stat-num { font-size: 24px; font-weight: 700; color: var(--navy); }
@@ -182,15 +182,30 @@
 </head>
 <body>
 
+<!-- NAME MODAL -->
+<div class="overlay" id="nameOverlay" style="display:flex;">
+  <div class="modal">
+    <span class="modal-emoji">💙</span>
+    <h2>¡Bienvenid@!</h2>
+    <p class="modal-gift-name" style="color:var(--navy);font-size:16px;">Lista de regalos de <strong>Benjamín</strong></p>
+    <p>¿Cómo te llamas? Así Benjamín sabrá quién le trajo cada regalo 💙</p>
+    <label for="name-input">Tu nombre</label>
+    <input type="text" id="name-input" placeholder="Ej: Tía Carmen" maxlength="40" />
+    <div class="modal-actions" style="flex-direction:column;gap:10px;">
+      <button class="btn-confirm" id="nameSubmitBtn" onclick="submitName()">¡Ver la lista de regalos! 🎁</button>
+    </div>
+  </div>
+</div>
+
 <!-- LOADING -->
 <div class="loading-overlay" id="loadingOverlay">
-  <span class="loading-emoji">🍼</span>
+  <span class="loading-emoji">💙</span>
   <div class="loading-text">Cargando lista de Benjamín...</div>
 </div>
 
 <!-- HERO -->
 <div class="hero" id="heroSection" style="display:none;">
-  <span class="hero-emoji">🍼</span>
+  <span class="hero-emoji">💙</span>
   <h1>Lista de Regalos de Benjamín</h1>
   <p>¡Elige tu regalo y ayuda a darle la bienvenida! 💙</p>
   <div class="stats">
@@ -313,6 +328,31 @@ const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 let activeTab = 'all';
 let pendingItemId = null;
+let currentUser = '';
+
+function submitName() {
+  const val = document.getElementById('name-input').value.trim();
+  if (!val) {
+    document.getElementById('name-input').style.borderColor = '#e8856a';
+    document.getElementById('name-input').focus();
+    setTimeout(() => document.getElementById('name-input').style.borderColor = '', 800);
+    return;
+  }
+  currentUser = val;
+  localStorage.setItem('benjamin_user_name', val);
+  document.getElementById('nameOverlay').style.display = 'none';
+  showMainUI();
+}
+
+function showMainUI() {
+  document.getElementById('heroSection').style.display = 'block';
+  document.getElementById('instructionsSection').style.display = 'flex';
+  document.getElementById('tabsWrapper').style.display = 'block';
+  document.getElementById('footerSection').style.display = 'block';
+  renderTabs();
+  renderContent();
+  updateStats();
+}
 
 // =============================================
 //  INIT
@@ -350,16 +390,15 @@ async function init() {
       })
       .subscribe();
 
-    // Mostrar UI
     document.getElementById('loadingOverlay').style.display = 'none';
-    document.getElementById('heroSection').style.display = 'block';
-    document.getElementById('instructionsSection').style.display = 'flex';
-    document.getElementById('tabsWrapper').style.display = 'block';
-    document.getElementById('footerSection').style.display = 'block';
 
-    renderTabs();
-    renderContent();
-    updateStats();
+    const savedName = localStorage.getItem('benjamin_user_name');
+    if (savedName) {
+      currentUser = savedName;
+      showMainUI();
+    } else {
+      document.getElementById('nameOverlay').style.display = 'flex';
+    }
 
   } catch (err) {
     console.error(err);
@@ -474,6 +513,10 @@ function closeModal() {
 document.getElementById('giver-input').addEventListener('keydown', e => {
   if (e.key === 'Enter') confirmGift();
   if (e.key === 'Escape') closeModal();
+});
+
+document.getElementById('name-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') submitName();
 });
 
 document.getElementById('overlay').addEventListener('click', e => {
