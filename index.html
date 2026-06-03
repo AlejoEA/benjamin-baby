@@ -7,15 +7,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --cream: #fff8f0;
-      --peach: #ffb38a;
-      --blush: #ffd6c0;
-      --mint: #c8f0e8;
-      --sage: #7ec8b8;
-      --navy: #1a2e4a;
-      --gold: #e8a44a;
+      --cream: #f0f7ff;
+      --peach: #7ec8e3;
+      --blush: #c2e4f5;
+      --mint: #daf0fb;
+      --sage: #4aabcc;
+      --navy: #1a3a4a;
+      --gold: #4aabcc;
       --white: #ffffff;
-      --shadow: 0 4px 24px rgba(26,46,74,0.10);
+      --shadow: 0 4px 24px rgba(26,74,90,0.10);
       --radius: 18px;
     }
 
@@ -26,8 +26,8 @@
       background: var(--cream);
       min-height: 100vh;
       background-image:
-        radial-gradient(circle at 10% 20%, rgba(255,179,138,0.18) 0%, transparent 50%),
-        radial-gradient(circle at 90% 80%, rgba(200,240,232,0.25) 0%, transparent 50%);
+        radial-gradient(circle at 10% 20%, rgba(126,200,227,0.18) 0%, transparent 50%),
+        radial-gradient(circle at 90% 80%, rgba(218,240,251,0.30) 0%, transparent 50%);
     }
 
     /* HERO */
@@ -143,7 +143,7 @@
     }
     .name-input:focus { border-color: var(--peach); }
     .btn-primary {
-      background: linear-gradient(135deg, var(--peach), var(--gold));
+      background: linear-gradient(135deg, #7ec8e3, #4aabcc);
       color: var(--white);
       border: none;
       padding: 14px 32px;
@@ -154,9 +154,9 @@
       cursor: pointer;
       width: 100%;
       transition: transform 0.15s, box-shadow 0.15s;
-      box-shadow: 0 4px 16px rgba(232,164,74,0.30);
+      box-shadow: 0 4px 16px rgba(74,171,204,0.30);
     }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,164,74,0.35); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(74,171,204,0.35); }
     .btn-primary:active { transform: translateY(0); }
 
     /* GIFT MODAL */
@@ -198,7 +198,7 @@
     }
     .gift-card p { color: #6b7f96; font-size: 14px; margin-bottom: 20px; }
     .btn-confirm {
-      background: linear-gradient(135deg, var(--sage), #4dab96);
+      background: linear-gradient(135deg, #4aabcc, #2e8fa8);
       color: white;
       border: none;
       padding: 13px 28px;
@@ -414,7 +414,7 @@
     }
     .progress-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--peach), var(--gold));
+      background: linear-gradient(90deg, #7ec8e3, #4aabcc);
       border-radius: 99px;
       transition: width 0.5s ease;
     }
