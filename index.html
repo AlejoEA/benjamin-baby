@@ -503,7 +503,7 @@
 
 <div class="content" id="mainContent" style="display:none;"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="config.js"></script>
 <script>
 // =============================================
@@ -645,7 +645,7 @@ const SECTIONS = [
 // =============================================
 //  SUPABASE SETUP
 // =============================================
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // =============================================
 //  STATE
@@ -668,7 +668,7 @@ function makeGiftId(sectionId, index) {
 async function init() {
   try {
     // Load current taken gifts
-    const { data, error } = await supabase
+    const { data, error } = await db
       .from('gifts')
       .select('gift_id, gift_name, taken_by');
 
@@ -679,7 +679,7 @@ async function init() {
     });
 
     // Subscribe to realtime changes
-    supabase
+    db
       .channel('gifts-channel')
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'gifts' }, (payload) => {
         const r = payload.new;
@@ -815,7 +815,7 @@ async function confirmGift() {
 
   try {
     // Check if already taken (race condition)
-    const { data: existing } = await supabase
+    const { data: existing } = await db
       .from('gifts')
       .select('gift_id')
       .eq('gift_id', pendingGiftId)
@@ -829,7 +829,7 @@ async function confirmGift() {
       return;
     }
 
-    const { error } = await supabase
+    const { error } = await db
       .from('gifts')
       .insert({ gift_id: pendingGiftId, gift_name: pendingGiftName, taken_by: userName });
 
